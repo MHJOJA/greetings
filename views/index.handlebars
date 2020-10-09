@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+
+    <div class="container"> <header>Greeting</header>
+        <br> 
+        <div>{{count}}</div>
+
+        <div>{{message}}</div>
+        <br>
+
+        <form action="/greeted" method="POST">
+            Name : <input type="text" name="name" id=""><br>
+            <input type="radio" name="language" value="xhosa"> Xhosa
+            <input type="radio" name="language" value="english"> English
+            <input type="radio" name="language" value="sotho"> Sotho
+
+            <br>
+
+             <button class="button-primary" type="submit" name="button">submit</button>
+            
+        </form>
+
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><a href="/greeted">user</a></td>
+            </tr>
+        </table>
+    </div>
+
+
+
+
+</body>
+
+</html>
