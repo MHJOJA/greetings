@@ -37,7 +37,6 @@ app.post('/greeted',function (req,res){
 
 app.get('/counter/:user', function (req, res) {
 
-    //  namesList = greet(req.params.user)
     
   
    let  username = req.params.user;
@@ -60,6 +59,12 @@ app.get('/greeted',function(req,res){
     })
 })
 
+app.get('/reset', function(req,res){
+    res.render('index')
+})
+app.get('/back',function(req,res){
+    res.redirect('/')
+})
 
 
 
