@@ -1,3 +1,6 @@
 body{
     background-color: aqua;
 }
+.container{
+    border: 0.2em solid lightblue
+}
