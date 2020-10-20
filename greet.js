@@ -1,6 +1,5 @@
 module.exports = function greetings() {
 
-    //var name = ['Susan', 'Steven', 'Luke', 'George'];
 
     var namesList = {}
 
