@@ -2,16 +2,39 @@ let express = require('express');
 let exphbs = require('express-handlebars')
 var bodyparser = require('body-parser')
 const Greet = require('./greet')
-
 let app = express();
-let greet = Greet()
+
+
+
+
+const pg = require("pg");
+const Pool = pg.Pool;
+
+// should we use a SSL connection
+let useSSL = false;
+let local = process.env.LOCAL || false;
+if (process.env.DATABASE_URL && !local) {
+    useSSL = true;
+}
+// which db connection to use
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/my_greetings';
+
+const pool = new Pool({
+    connectionString,
+    // ssl : useSSL
+});
+
+
+
+
+let greet = Greet(pool)
 
 app.use(express.static('public'));
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-app.use(bodyparser.urlencoded({extended: false}))
+app.use(bodyparser.urlencoded({ extended: false }))
 app.set(bodyparser.json())
 
 
@@ -21,48 +44,51 @@ app.get('/the-route', function (req, res) {
 });
 
 
-app.get('/', function (req,res){
-    res.render('index')
-
-})
-app.post('/greeted',function (req,res){
-    greet.setNames(req.body.name)
-
+app.get('/', async function (req, res) {
     res.render('index', {
+        count : await greet.counter()
+    })
+})
+
+app.post('/greet', async function (req, res) {
+    await greet.setAnUpdate(req.body.name)
+    let count = await greet.counter()
+    res.render('index', {
+        count: count,
+
         message: greet.greeted(req.body.name, req.body.language),
-        count:  greet.counter()
     })
 
 })
 
-app.get('/counter/:user', function (req, res) {
-
-    
-  
-   let  username = req.params.user;
-   let nameList = greet.users()
+app.get('/counter/:user',  async function (req, res) {
 
 
-    res.render('user',{
-       name : username,
-       count : nameList[username]
-     })
-  
-  
-  })
-app.get('/greeted',function(req,res){
-    
-    
 
-    res.render('greeted',{
-        names :  greet.users(),
+    let username = req.params.user;
+    let nameList = await greet.personsCount(username)
+
+console.log(nameList)
+    res.render('user', {
+        name: username,
+        count: nameList
+    })
+
+
+})
+app.get('/greeted', async function (req, res) {
+
+
+console.log(await greet.users())
+    res.render('greeted', {
+        names: await greet.users(),
     })
 })
 
-app.get('/reset', function(req,res){
+app.get('/reset', function (req, res) {
     res.render('index')
 })
-app.get('/back',function(req,res){
+app.get('/back', function (req, res) {
     res.redirect('/')
 })
 
@@ -70,7 +96,7 @@ app.get('/back',function(req,res){
 
 
 const PORT = process.env.PORT || 3019
-app.listen(PORT,function(){
+app.listen(PORT, function () {
     console.log('App started at port:', PORT)
 })
 

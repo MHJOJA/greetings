@@ -1,6 +1,6 @@
 <ul>
     {{#each names}}
-        <li><a href="/counter/{{@key}}">{{@key}}</a> </li>
+        <li><a href="/counter/{{this.names}}">{{this.names}}</a> </li>
 {{/each}}
 <button type="submit"> <a href="/back">BACK</a></button>
 </ul>
