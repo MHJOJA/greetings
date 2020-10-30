@@ -71,12 +71,15 @@ app.post('/greet', async function (req, res) {
         req.flash('info','please entert name below')
     } 
     
-    if(lang == undefined){
+   else if(lang == undefined){
         req.flash('info','please select language')
     }
-    // else {  await greet.setAnUpdate(req.body.name)
+    else {
         await greet.setAnUpdate(req.body.name)
         var count = await greet.counter()
+    }
+    // else {  await greet.setAnUpdate(req.body.name)
+       
 
     // }
   
@@ -86,7 +89,6 @@ app.post('/greet', async function (req, res) {
 
         message: greet.greeted(req.body.name, req.body.language),
     })
-
 })
 
 app.get('/counter/:user',  async function (req, res) {
@@ -95,18 +97,8 @@ app.get('/counter/:user',  async function (req, res) {
 
     let username = req.params.user;
     let nameList = await greet.personsCount(username)
+   
     console.log(nameList);
-
-    
-
-    for (const key in nameList) {
-      
-            var element = nameList[key];
-            
-    }
-
-
-    // console.log(element);
 
     res.render('user', {
         name: username,

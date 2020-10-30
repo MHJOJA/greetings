@@ -30,8 +30,10 @@ module.exports = function greet(pool) {
         const setName = await pool.query('SELECT names FROM greet WHERE names= $1', [name])
         if (setName.rowCount === 0) {
         await storeNames(name);
+        } 
+        else {
+            await updateNames(name);
         }
-       await updateNames(name);
     }
 
 
