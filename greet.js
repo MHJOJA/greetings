@@ -1,7 +1,7 @@
 module.exports = function greet(pool) {
 
 
-    var namesList = {}
+    //var namesList = {}
 
 
     // function setNames(name) {
@@ -22,7 +22,9 @@ module.exports = function greet(pool) {
 
     async function updateNames(name) {
         await pool.query('UPDATE greet set counters = counters+1 WHERE names = $1', [name])
-    }
+        if(name === undefined){
+            return ('please entert name below')
+        }    }
 
     async function setAnUpdate(name) {
         const setName = await pool.query('SELECT names FROM greet WHERE names= $1', [name])
@@ -43,6 +45,8 @@ module.exports = function greet(pool) {
 
     function greeted(name, language) {
 
+
+
         if (language == "xhosa") {
             return "Molo, " + name;
         }
@@ -55,10 +59,11 @@ module.exports = function greet(pool) {
             return "Dumelang, " + name
         }
     }
-
+    
 
     async function users() {
         let setName = await pool.query('SELECT names FROM greet')
+        console.log(setName.rows)
         return setName.rows;
     }
 
@@ -66,7 +71,21 @@ module.exports = function greet(pool) {
         let counts = await pool.query('SELECT * FROM greet')
         return counts.rowCount;
     }
+    async function selectName (){
+        let select = await pool.query('select name from greet WHERE names = $1')
+        return select.rowCount;
+    }
+    async function usersList (){
+        return namesList
 
+    }
+
+    async function remove(){
+     await pool.query("delete from greet")
+    }
+
+
+    
     return {
         greeted,
         storeNames,
@@ -74,6 +93,9 @@ module.exports = function greet(pool) {
         counter,
         updateNames,
         setAnUpdate,
-        personsCount
+        personsCount,
+        remove,
+        selectName,
+        usersList
     }
 }

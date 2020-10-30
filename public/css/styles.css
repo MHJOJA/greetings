@@ -4,7 +4,12 @@ body{
     display: flex;
     justify-content: center;
     font-size: large;
+    
+    
 }
 .container{
     border: 0.2em solid lightblue
+}
+.info{
+    color: red;
 }
