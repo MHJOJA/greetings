@@ -128,8 +128,7 @@ app.get('/greeted', async function (req, res) {
 app.get('/reset',async function (req, res) {
     await greet.remove()
 
-    res.render('index',{
-    })
+    res.render('index')
 })
 app.get('/back', function (req, res) {
     res.redirect('/')
