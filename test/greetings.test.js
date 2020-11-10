@@ -1,7 +1,8 @@
 const assert = require('assert')
 let  Greet = require('../greet')
 const greet = Greet()
-const pg = require('pg')
+const pg = require('pg');
+const { count } = require('console');
 const Pool = pg.Pool;
 
 // we are using a special test database for the tests
@@ -18,10 +19,29 @@ describe('The greetings application', async function () {
 
     });
     
-})
+
 it('should be able to greet Thabo in Xhosa',function(){
     assert.equal('Molo, Thabo',greet.greeted('Thabo','xhosa'))
 })
+it('should be able to greet Thabo in English',function(){
+    assert.equal('Hello, Thabo', greet.greeted('Thabo','english'))
+})
+it('should be able to greet Thabo in Sotho',function(){
+    assert.equal('Dumelang, Thabo',greet.greeted('Thabo','sotho'))
+
+});
+
+
+
+
+after(function () {
+    pool.end();
+})
+})
+
+
+
+
 // it('should be able to greet Thabo in Xhosa',function(){
 //     var result =greet.greeted('Thabo','xhosa')
 //     assert.equal('Molo, Thabo',result)
