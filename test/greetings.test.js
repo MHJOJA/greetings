@@ -1,6 +1,5 @@
 const assert = require('assert')
 let  Greet = require('../greet')
-const greet = Greet()
 const pg = require('pg');
 // const { count } = require('console');
 const Pool = pg.Pool;
@@ -10,7 +9,8 @@ const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@l
 const pool = new Pool({
     connectionString
 })
-//const greetings = greet(pool)
+const greet = Greet(pool)
+
 describe('The greetings application', async function () {
 
     beforeEach(async function () {
