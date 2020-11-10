@@ -2,7 +2,7 @@ const assert = require('assert')
 let  Greet = require('../greet')
 const greet = Greet()
 const pg = require('pg');
-const { count } = require('console');
+// const { count } = require('console');
 const Pool = pg.Pool;
 
 // we are using a special test database for the tests

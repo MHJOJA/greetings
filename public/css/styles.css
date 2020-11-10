@@ -8,9 +8,13 @@ body{
     
 }
 .container{
-    border: 0.1em solid lightblue;
+    border: 0.15em solid lightblue;
+    
     
 }
 .info{
     color: red;
+}
+button{
+    font-size:x-large;
 }
