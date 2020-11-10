@@ -1,8 +1,7 @@
 const assert = require('assert')
 let  Greet = require('../greet')
-const greet = Greet()
 const pg = require('pg');
-const { count } = require('console');
+// const { count } = require('console');
 const Pool = pg.Pool;
 
 // we are using a special test database for the tests
@@ -10,7 +9,8 @@ const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@l
 const pool = new Pool({
     connectionString
 })
-//const greetings = greet(pool)
+const greet = Greet(pool)
+
 describe('The greetings application', async function () {
 
     beforeEach(async function () {
