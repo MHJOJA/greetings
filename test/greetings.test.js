@@ -41,22 +41,28 @@ it('should return the total number of the names which has been greeted',async fu
 
 it('should return how many times a person has been greeted',async function(){
 
-     await greet.storeNames('Mattew');
+     await greet.storeNames('Matthew');
 
-     await greet.setAnUpdate('Mattew')
-     await greet.setAnUpdate('Mattew')
+     await greet.setAnUpdate('Matthew')
+     await greet.setAnUpdate('Matthew')
 
-    assert.equal( 3,await greet.personsCount('Mattew'));
+    assert.equal( 3,await greet.personsCount('Matthew'));
 })
 
+it('should  be able to count once for person when its a duplicate ',async function(){
+    await greet.storeNames('Senzo');
+    await greet.storeNames('Senzo');
+    await greet.storeNames('Senzo');
 
+    const count = await greet.personsCount('Senzo')
+    assert.equal(1,count)
+})
 
 
 after(function () {
     pool.end();
 })
 })
-
 
 
 
