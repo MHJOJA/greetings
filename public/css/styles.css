@@ -5,19 +5,15 @@ body{
     justify-content: center;
     font-size: xx-large;
     
-
-    
     
 }
 .container{
-    size: 6em;
-    border: 0.15em solid lightblue;
-    
+    border: 0.1em solid lightblue;
     
 }
 .info{
     color: red;
 }
 button{
-    font-size:x-large;
+    font-size: x-large;
 }
