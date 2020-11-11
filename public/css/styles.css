@@ -2,13 +2,16 @@ body{
     
     background-color:lightgoldenrodyellow;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     font-size: xx-large;
     
     
 }
 .container{
     border: 0.1em solid lightblue;
+    padding: 0.55cm;
+    margin: auto;
+
     
 }
 .info{
