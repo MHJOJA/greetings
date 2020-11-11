@@ -39,7 +39,7 @@ module.exports = function greet(pool) {
 
 
     async function personsCount(name) {
-        const setName = await pool.query('SELECT counters FROM greet WHERE names= $1', [name])
+        const setName = await pool.query('SELECT counters FROM greet WHERE names= $1',[name])
         return setName.rows[0].counters
     }
 

@@ -30,6 +30,24 @@ it('should be able to greet Thabo in Sotho',function(){
     assert.equal('Dumelang, Thabo',greet.greeted('Thabo','sotho'))
 
 });
+it('should return the total number of the names which has been greeted',async function(){
+    await greet.storeNames('Sizwe');
+    await greet.storeNames('Ludwe');
+
+
+
+    assert.equal(2, await greet.counter())
+})
+
+it('should return how many times a person has been greeted',async function(){
+
+     await greet.storeNames('Mattew');
+
+     await greet.setAnUpdate('Mattew')
+     await greet.setAnUpdate('Mattew')
+
+    assert.equal( 3,await greet.personsCount('Mattew'));
+})
 
 
 
