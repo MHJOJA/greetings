@@ -4,6 +4,7 @@ var bodyparser = require('body-parser')
 const Greet = require('./greet')
 const flash = require('express-flash')
 const session = require('express-session')
+const routes = require('./routes')
 let app = express();
 
 
@@ -48,83 +49,22 @@ app.use(session({
 
 app.use(flash());
 
-
-app.get('/the-route', function (req, res) {
-    req.flash('info', 'Flash Message Added');
-    res.redirect('/');
-});
+var Routes = routes(greet);
 
 
-app.get('/', async function (req, res) {
-    req.flash('error','please entert name below')
+app.get('/the-route', Routes.flashMessages);
 
-    res.render('index', {
-        count : await greet.counter()
-    })
-})
+app.get('/', Routes.home)
 
-app.post('/greet', async function (req, res) {
-    var name = req.body.name;
-    var lang = req.body.language
+app.post('/greet', Routes.greets)
 
-    if (name === '' ) {
-        req.flash('info','please entert name below')
-    } 
-    
-   else if(lang == undefined){
-        req.flash('info','please select language')
-    }
-    else {
-        await greet.setAnUpdate(req.body.name)
-        var count = await greet.counter()
-    }
-    // else {  await greet.setAnUpdate(req.body.name)
-       
+app.get('/counter/:user', Routes.counter)
 
-    // }
-  
+app.get('/greeted', Routes.greeted)
 
-    res.render('index', {
-        count: count,
+app.get('/reset', Routes.reset)
 
-        message: greet.greeted(req.body.name, req.body.language),
-    })
-})
-
-app.get('/counter/:user',  async function (req, res) {
-
-
-
-    let username = req.params.user;
-    let nameList = await greet.personsCount(username)
-   
-    console.log(nameList);
-
-    res.render('user', {
-        name: username,
-        count: nameList
-
-    })
-
-
-})
-app.get('/greeted', async function (req, res) {
-
-
-// console.log(await greet.users())
-    res.render('greeted', {
-        names: await greet.users(),
-    })
-})
-
-app.get('/reset',async function (req, res) {
-    await greet.remove()
-
-    res.render('index')
-})
-app.get('/back', function (req, res) {
-    res.redirect('/')
-})
+app.get('/back', Routes.back)
 
 
 

@@ -9,14 +9,19 @@
 </head>
 
 <body>
-    
 
-        {{!-- <div>{{messages.error}}</div> --}}
 
-    <div class="container"> <header>GREETINGS</header>
-            <div class="info">{{messages.info}}</div>
+    {{!-- <div>{{messages.error}}</div> --}}
 
-        <br> 
+    <div class="container">
+        <header>GREETINGS</header>
+
+        <div class="info">{{messages.info}}</div>
+
+        <div class="success">{{messages.success}}</div>
+
+
+        <br>
         count<div>{{count}}</div>
 
         <div>{{message}}</div>
@@ -25,21 +30,23 @@
         <form action="/greet" method="POST">
             <div class="name">
                 <label for="name">Name</label>
-             <input type="text" name="name" id=""><br>
+                <input type="text" name="name" id=""
+                onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)";
+                ><br>
             </div>
             <div class="radio">
 
-            <input type="radio" name="language" value="xhosa"> Xhosa
-            <input type="radio" name="language" value="english"> English
-            <input type="radio" name="language" value="sotho"> Sotho
+                <input type="radio" name="language" value="xhosa"> Xhosa
+                <input type="radio" name="language" value="english"> English
+                <input type="radio" name="language" value="sotho"> Sotho
             </div>
 
             <br>
 
-             <button class="button-primary" type="submit" name="button">submit</button>
-                 <button type="submit" name="reset"> <a href="/reset">reset</a> </button>
+            <button class="button-primary" type="submit" name="button">submit</button>
+            <button type="submit" name="reset"> <a href="/reset">reset</a> </button>
 
-            
+
         </form>
 
     </div>

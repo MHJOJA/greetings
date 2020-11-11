@@ -1,19 +1,10 @@
 module.exports = function greet(pool) {
 
 
-    //var namesList = {}
-
-
-    // function setNames(name) {
-    //     if (namesList[name] === undefined) {
-    //         namesList[name] = 0
-    //     }
-    //     namesList[name]++
-
-    // }
+    
 
     async function storeNames(name) {
-
+        name = name.charAt(0).toUpperCase() + name.slice(1)
         await pool.query('insert into greet(names,counters) values ($1,$2)', [name, 1])
 
 
@@ -21,12 +12,14 @@ module.exports = function greet(pool) {
 
 
     async function updateNames(name) {
+        name = name.charAt(0).toUpperCase() + name.slice(1)
         await pool.query('UPDATE greet set counters = counters+1 WHERE names = $1', [name])
         if(name === undefined){
             return ('please entert name below')
         }    }
 
     async function setAnUpdate(name) {
+        name = name.charAt(0).toUpperCase() + name.slice(1)
         const setName = await pool.query('SELECT names FROM greet WHERE names= $1', [name])
         if (setName.rowCount === 0) {
         await storeNames(name);
@@ -39,6 +32,7 @@ module.exports = function greet(pool) {
 
 
     async function personsCount(name) {
+        name = name.charAt(0).toUpperCase() + name.slice(1)
         const setName = await pool.query('SELECT counters FROM greet WHERE names= $1',[name])
         return setName.rows[0].counters
     }
@@ -47,7 +41,7 @@ module.exports = function greet(pool) {
 
     function greeted(name, language) {
 
-
+        name = name.charAt(0).toUpperCase() + name.slice(1)
 
         if (language == "xhosa") {
             return "Molo, " + name;

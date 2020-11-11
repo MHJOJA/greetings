@@ -20,3 +20,7 @@ body{
 button{
     font-size: x-large;
 }
+
+.success{
+    color: green
+}
