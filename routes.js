@@ -25,10 +25,7 @@ module.exports = function routes(greet) {
         await greet.setAnUpdate(req.body.name)
         var count = await greet.counter()
     }
-    // else {  await greet.setAnUpdate(req.body.name)
-       
-
-    // }
+    
   
 
     res.render('index', {
