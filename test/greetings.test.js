@@ -11,6 +11,7 @@ const pool = new Pool({
 })
 const greet = Greet(pool)
 
+
 describe('The greetings application', async function () {
 
     beforeEach(async function () {
@@ -30,6 +31,9 @@ it('should be able to greet Thabo in Sotho',function(){
     assert.equal('Dumelang, Thabo',greet.greeted('Thabo','sotho'))
 
 });
+
+
+
 it('should return the total number of the names which has been greeted',async function(){
     await greet.storeNames('Sizwe');
     await greet.storeNames('Ludwe');

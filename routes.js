@@ -93,6 +93,7 @@ module.exports = function routes(greet) {
     }
 
     return{
+    
         home,
         greets,
         counter,
