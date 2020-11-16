@@ -15,7 +15,7 @@ module.exports = function routes(greet) {
     var lang = req.body.language
 
     if (name === '' ) {
-        req.flash('info','please entert name below')
+        req.flash('info','please enter name below')
         
     } 
     
