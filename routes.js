@@ -3,15 +3,16 @@ module.exports = function routes(greet) {
     let greetings = require ('./greet');
 
     async function home (req, res){
-        req.flash('error','please entert name below')
+      //  req.flash('error','please entert name below')
 
         res.render('index', {
-            count : await greet.counter()
+            count : await greet.counter(),
+            //count: count,
         })
     }
 
     async function greets (req, res){
-          var name = req.body.name;
+    var name = req.body.name;
     var lang = req.body.language
 
     if (name === '' ) {
@@ -41,10 +42,9 @@ module.exports = function routes(greet) {
   
 
     res.render('index', {
-        count: count,
-        message: greeting
-
-
+        
+        message: greeting,
+        count: await greet.counter()
     })
 }
     
@@ -58,8 +58,8 @@ module.exports = function routes(greet) {
 
     res.render('user', {
         name: username,
-        count: nameList
-
+        count: nameList,
+        //count: count
     })
 
 }
@@ -68,6 +68,7 @@ module.exports = function routes(greet) {
 
         res.render('greeted', {
             names: await greet.users(),
+            
         })
 
     }
@@ -77,7 +78,9 @@ module.exports = function routes(greet) {
         req.flash('success','successfully reseted counter')
     await greet.remove()
 
-    res.render('index')
+    res.render('index', {
+        count: count
+    })
 
     }
 
@@ -88,7 +91,9 @@ module.exports = function routes(greet) {
     async function flashMessages (req, res){
 
         req.flash('info', 'Flash Message Added');
-    res.redirect('/');
+    res.redirect('/', {
+        count: count
+    });
 
     }
 
