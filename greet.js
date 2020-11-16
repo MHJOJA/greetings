@@ -5,6 +5,12 @@ module.exports = function greet(pool) {
 
     async function storeNames(name) {
         name = name.charAt(0).toUpperCase() + name.slice(1)
+        const item = await pool.query(`select id from greetings where name=$1`, [name]);
+        if (item.rowCount === 0) {
+        
+        await pool.query(`insert into greetings(name, counter) values ($1, 0)`, [name]);
+        }
+
         await pool.query('insert into greet(names,counters) values ($1,$2)', [name, 1])
 
 

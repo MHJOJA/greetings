@@ -16,24 +16,38 @@ module.exports = function routes(greet) {
 
     if (name === '' ) {
         req.flash('info','please entert name below')
+        
     } 
     
    else if(lang == undefined){
         req.flash('info','please select language')
+    }
+
+    else if(name === '' && lang === undefined){
+
+        req.flash('info', 'Enter your name and select a language')
     }
     else {
         await greet.setAnUpdate(req.body.name)
         var count = await greet.counter()
     }
     
+    if(name){
+
+     var greeting = greet.greeted(req.body.name, req.body.language)
+
+    }
+
   
 
     res.render('index', {
         count: count,
+        message: greeting
 
-        message: greet.greeted(req.body.name, req.body.language),
+
     })
-    }
+}
+    
 
     async function counter(req, res){
 
@@ -48,7 +62,7 @@ module.exports = function routes(greet) {
 
     })
 
-    }
+}
 
     async function greeted (req, res){
 
