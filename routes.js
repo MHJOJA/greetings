@@ -3,11 +3,10 @@ module.exports = function routes(greet) {
     let greetings = require ('./greet');
 
     async function home (req, res){
-      //  req.flash('error','please entert name below')
 
         res.render('index', {
             count : await greet.counter(),
-            //count: count,
+            
         })
     }
 
@@ -59,7 +58,7 @@ module.exports = function routes(greet) {
     res.render('user', {
         name: username,
         count: nameList,
-        //count: count
+        
     })
 
 }
@@ -79,7 +78,7 @@ module.exports = function routes(greet) {
     await greet.remove()
 
     res.render('index', {
-        count: count
+         
     })
 
     }
